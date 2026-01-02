@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <script src="/assets/js/script.js"></script>
+
+    <title>Wayne's Portfolio</title>
+</head>
+
+<body>
+    <!-- NAVBAR -->
+     <!-- _includes/nav.html -->
+<nav>
+    <div class="left">
+        <a href="/">Wayne Sudanartha</a>
+    </div>
+
+    <!-- Desktop Menu -->
+    <div class="right desktop-nav">
+        <a href="/">
+            <span>Home</span>
+        </a>
+        <a href="/index.html#projects">
+            <span>Projects</span>
+        </a>
+
+    </div>
+
+    <!-- Mobile Menu Button -->
+    <button class="menu-toggle" aria-label="Toggle menu">
+        <i class="fa fa-bars fa-2x"></i>
+    </button>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-nav">
+        <a href="/">
+            <span>Home</span>
+        </a>
+        <a href="/index.html#projects">
+            <span>Projects</span>
+        </a>
+    </div>
+</nav>
+
+<div class="page"><div class="post-view">
+    <div class="summary">
+        <img class="cover" src="media/cover.jpg" style="aspect-ratio: auto;">
+        
+        <div class="title-header">
+            <h1> Pet Rescue Robot - Robotics Competition (3rd Place)</h1>
+        </div>
+        
+        <div class="project-description">
+            <h2>Competition Description</h2>
+            <p>
+                For the competition, 15 teams designed fully autonomous robots to rescue pet plushies scattered across an 8 ft × 8 ft playing surface featuring ramps, elevated floors, obstacles, walls, windows, and a narrow archway. Some pets were hidden inside tubes and behind walls, adding extra sensing and navigation challenges. Each pet had a very weak magnet embedded in its head to aid with detection.
+            </p>
+
+            <h2>Role Summary</h2>
+            <p>
+                I was responsible for the robot's entire electrical system, including high-level design, electronics manufacturing and sourcing, system integration, and wiring. I also created the system-level software design and claw-related control software, and helped design various mechanical parts and sensor mounts.
+            </p>
+
+            <h2>Design Philosophy and Strategy</h2>
+            <p>
+                As a team, reliability was our top priority, so our design philosophy focused on keeping the robot simple and executing it well. Since the challenge was very open-ended, we prioritized modularity so we could quickly try different approaches, adapt to new use cases, and swap out components if something broke. This was everyone’s first robotics competition, so our main goal was to learn as much as possible rather than worry about winning.
+            </p>
+            
+            <h2>Robot design</h2>
+            <p>
+                The robot used a two-wheel drive base with a chassis-mounted mechanical claw. The claw had three degrees of freedom: base rotation, vertical lift stage, and linear arm extension. For sensing, we used a time-of-flight LiDAR for rough positioning and obstacle awareness, and a magnetometer for fine claw alignment when locating pets. The magnetometer allowed the claw to home in on the weak embedded magnet once the robot was in the general area.
+            </p>
+
+            <h2>Electrical System</h2>
+            <p>
+                A general overview of the electrical system is as follows:
+            </p>
+
+            <figure>
+                <img src="media/electrical_system.jpeg" width="80%"/>
+                <figcaption> Pet rescue robot electrical system overview</figcaption>
+            </figure>
+
+            <p>
+                Overall, the electrical system ended up being very robust. All modules behaved as they should from initial testing through competition runs. The main issue we ran into after full system integration was I2C reliability (which I found out after reading the communication line using an oscilloscope). Some of the communication lines were simply too long (some are over a meter), which caused data corruption and erratic claw behavior. 
+            </p>
+
+            <p>
+                To fix this, I shortened the I2C lines wherever possible, lowered the clock speed to 50 kHz, and increased the pull-up strength. After those changes, communication become stable and the issue did not reappear for the remainder of testing or competition.
+            </p>
+
+            <p>
+                I designed a total of eight custom PCBs to support the robot’s sensing, actuation, power distribution, and logic control:
+                <table>
+                    <thead>
+                        <tr>
+                        <th width="25%">Board name</th>
+                        <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Logic Power Regulation Board</td>
+                            <td>Provides clean, regulated power for electronics used in logic and control</td>
+                        </tr>
+                        <tr>
+                            <td>ESP32 Breakout Board</td>
+                            <td>Acts as the main control hub for the ESP32 to interface with robot sensors, actuators, and other peripherals. Strapping pins' behavior during startup was considered.</td>
+                        </tr>
+                        <tr>
+                            <td>I2C Multiplexer Board</td>
+                            <td>Acts as a central I2C hub with multiplexing capability for sensors with identical addresses.</td>
+                        </tr>
+                        <tr>
+                            <td>H-Bridge Motor Driver</td>
+                            <td>Controls DC motor speed and direction. Includes optocoupler isolation on control signals to reduce noise coupling from the motor side.</td>
+                        </tr>
+                        <tr>
+                            <td>Optocoupler Board</td>
+                            <td>Decouples control signals and motor power to prevent noise coupling.</td>
+                        </tr>
+                        <tr>
+                            <td>Tape Sensing Board</td>
+                            <td>Detects tape markers on the competition surface for navigation during driving.</td>
+                        </tr>
+                        <tr>
+                            <td>Microswitch Debouncing Board</td>
+                            <td>Filters mechanical switch bounce to prevent false triggers.</td>
+                        </tr>
+                        <tr>
+                            <td>Infrared Beacon Detector</td>
+                            <td>Detects the position of an infrared-emitting beacon. This board was ultimately not used in the final design due to a strategy changes.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </p>
+            <p>
+                Further details of each board are provided in their respective sections.
+            </p>
+
+            <h2> Software </h2>
+            <p>
+                I designed the high-level software architecture for the robot, defining the core objects (we were using OOP), their responsibilities, and how they interact across sensing, control, and actuation. At a high level, the system was structured so that sensing, decision-making, and actuation were cleanly separated. This made it easier to test individual subsystems in isolation and iterate quickly as hardware changed.
+            </p>
+            <p>
+                To achieve accurate and repeatable arm positioning without using (expensive) off-the-shelf servos, I implemented a continuous servo using a DC motor paired with an AS5600 magnetic encoder. The encoder provided absolute angular position, which allowed me to track the wrapped angle and angular velocity in software. Control was implemented with a closed-loop PD controller, running at 50 Hz to regulate position and speed. 
+            </p>
+            <p>
+                This system was used for precise positioning of the robot’s arm and was experimentally validated during testing:
+                <ul>
+                    <li><b>Angular accuracy:</b> ~3° (encoder + control loop)</li>
+                    <li><b>Arm positioning accuracy:</b> ~5 mm over a 25 cm reach (after accounting for backlash)</li>
+                    <li><b>Claw base rotation accuracy:</b> ~6°</li>
+                    <li><b>Vertical stage accuracy:</b> ~1 mm (lead screw driven)</li>
+                </ul>
+            </p>
+            <p>
+                I also developed the software used to interface directly with the claw subsystem. This included dedicated test and diagnostic routines to verify correct operation of motors and sensors, as well as tools for PID tuning. The claw software also handled homing sequences and magnetometer hard-iron calibration.
+            </p>
+
+            <h2>Additional Contributions</h2>
+            <p>
+                Beyond the electrical and software systems, I also contributed to several mechanical aspects of the robot. I helped with lead screw drilling and alignment, where I needed to use a mill so holes are centered. I also made 3D printable models of the mounts for claw sensors, actuators, and gear couplings.
+            </p>
+
+            <h2>
+                Possible Improvements and Lessons Learned:
+            </h2>
+
+            <p>
+                There are several things I would improve if I were to redesign the system:
+                <ul>
+                    <li>
+                        <b>Wiring and routing</b><br>
+                        The wiring could have been cleaner and more intentional. In particular, actuator wiring should have been routed from the back to reduce strain and interference with moving parts.
+                    </li>
+
+                    <li>
+                        <b>Electronics integration</b><br>
+                        After initial testing, the system should ideally have been consolidated onto a more compact board. During competition, this wasn’t feasible due to PCB lead times and the risk of breaking the working system.
+                    </li>
+
+                    <li>
+                        <b>Decentralized motor control</b><br>
+                        A dedicated motor controller handling PID locally would have reduced load on the main controller and simplified higher-level software.
+                    </li>
+                </ul>
+            </p>
+
+            <p>
+                Overall, this project was a great learning experience. It was super fun to explore different design approaches, troubleshoot problems I’d never encountered before, and bring together a relatively complex autonomous system under real constraints.
+            </p>
+
+            <p>
+                I am really grateful for the opportunity to take part in that competition. I got to build something cool together with my friends and learned a lot in the process. The hands-on experience I gained throughout this project was simply priceless.
+            </p>
+        </div>
+
+        <div class="skills-card">
+            <h2>Skills Used</h2> 
+            <div class="skills-list">
+                <span class="skill">Altium PCB design</span>    
+                <span class="skill">Power electronics </span>  
+                <span class="skill">PID control</span> 
+                <span class="skill">Sensor design</span> 
+                <span class="skill">Automation</span> 
+                <span class="skill">Modular design</span> 
+                <span class="skill">I2C</span> 
+                <span class="skill">Electrical system design</span> 
+                <span class="skill">OOP</span> 
+                <span class="skill">Software system design</span> 
+                <span class="skill">System integration</span> 
+  
+
+            </div>
+        </div>
+    </div>
+    
+    <div class="content">        
+        <hr/>
+        <h2> Competition Surface</h2>
+        <div class="image-gallery" style="--gallery-height: 300px; --ar: 5/3;">
+            <figure>
+                <img src="media/comp_3d.png"/>
+                <figcaption> Competition surface 3D model view. </figcaption>
+            </figure>
+            <figure>
+                <img src="media/comp_2d.png"/>
+                <figcaption> Competition surface 2D description. </figcaption>
+            </figure>
+        </div>
+
+        <h2>Robot in Operation</h2>
+        <figure>
+            <video autoplay muted loop playsinline width="60%">
+                <source src="media/robot_operation.mp4" type="video/mp4">
+            </video>
+            <figcaption> The robot autonomously rescuing a pet and dropping it to the safe zone. </figcaption>
+        </figure>
+
+        <h2>Claw Testing</h2>
+        <figure>
+            <video autoplay muted loop playsinline width="30%">
+                <source src="media/claw_demo.mp4" type="video/mp4">
+            </video>
+            <figcaption> The claw being tested during the initial stages of the design. Vertical homing and (slow) pet sensing is demonstrated. Note that the base gear was not yet installed so I had to hold it in place. </figcaption>
+        </figure>
+
+        <h2>Continuous Servo</h2>
+        <figure>
+            <video autoplay muted loop playsinline width="60%">
+                <source src="media/continuous_servo.mp4" type="video/mp4">
+            </video>
+            <figcaption> A continuous servo made from a generic geared motor and AS5600 magnetic encoder. Utilized a PD control loop implemented in software. </figcaption>
+        </figure>
+
+
+        <h2>Electronics</h2>
+        <figure>
+            <img src="media/annotated_chassis.jpeg" width="40%"/>
+            <figcaption> Boards wired inside of the chassis. </figcaption>
+        </figure>
+        <h2>PCB Boards</h2>
+        <h3>Logic Power Regulation Board</h3>
+        <h3>ESP32 Breakout Board</h3>
+        <h3>I2C Multiplexer Board</h3>
+        <h3>H-Bridge Motor Driver</h3>
+        <h3>Optocoupler Board</h3>
+        <h3>Tape Sensing Board</h3>
+        <h3>Microswitch Debouncing Board</h3>
+        <h3>Infrared Beacon Detector</h3>
+    </div>
+
+</div></div>
+
+     
+</body>
+
+</html>

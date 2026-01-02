@@ -4,29 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     
-
     <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="/css/syntax.css">
 
     <script src="/assets/js/script.js"></script>
 
-    
-    <title>John Doe's Portfolio</title>
-    
-
+    <title>Wayne's Portfolio</title>
 </head>
+
 <body>
     <!-- NAVBAR -->
      <!-- _includes/nav.html -->
 <nav>
     <div class="left">
-        <a href="/">John Doe</a>
+        <a href="/">Wayne Sudanartha</a>
     </div>
 
     <!-- Desktop Menu -->
@@ -34,7 +30,7 @@
         <a href="/">
             <span>Home</span>
         </a>
-        <a href="/projects/">
+        <a href="/index.html#projects">
             <span>Projects</span>
         </a>
 
@@ -50,53 +46,72 @@
         <a href="/">
             <span>Home</span>
         </a>
-        <a href="/projects/">
+        <a href="/index.html#projects">
             <span>Projects</span>
         </a>
     </div>
 </nav>
 
-     <div class="page"><div class="post-view">
+<div class="page"><div class="post-view">
     <div class="summary">
-        
-       
-        
-               
-        <img src="/_projects/sonos-teardownproject-image.webp" alt="Sonos teardown image">
+        <img class="cover" src="/projects/v6-engine/media/cover.png">
         
         <div class="title-header">
-            <h1>Sonos teardown</h1>
+            <h1>Aircraft Power Distribution Board</h1>
         </div>
         
         <div class="project-description">
-            <h2>Project Overview</h2>
-            <p>Conducted detailed teardown analysis of Sonos Era speaker, documenting internal components, driver configuration, and PCB design. Created technical documentation with photos and assembly insights for engineering reference.</p>
+            <h2>Project Description</h2>
+            <p>
+                This project is a power distribution board designed to step down a 50.4 V LiPo battery pack and supply regulated power to an aircraft flight controller (5 V) and servos (6 V). While its main role was regulation, the board was also used to distribute raw battery power to four motor ESCs (20 A each). For this application, solder was applied over exposed copper areas to increase current-carrying capacity and reduce trace resistance.            
+            </p>
+            <p>
+                The board includes battery voltage sensing and Hall-effect current measurement, with a differential amplifier used to maximize the usable current measurement range and use the full analog reading range. Although each downstream flight component draws up to about 1 A, the buck converter outputs were designed for 5 A to maintain a comfortable safety margin.
+            </p>
+
+            <h2>Design Considerations</h2>
+            <p>
+                I considered component parasitics throughout the design process, and all supporting components were selected to meet the recommendations in the TPS54560 buck converter datasheet. I made sure that the ground plane was mostly solid and no traces were blocking current return paths. During routing, I took extra care to minimize the size of high-frequency and high-power current loops to reduce EMI.
+            </p>
+            <p>
+                Analog signal integrity was also a priority. I kept sensitive traces short and routed away from high-energy components such as inductors and switching nodes. I also added decoupling capacitors throughout the board to improve power stability. I simulated the circuit in LTspice to verify correct operation before moving into PCB layout and fabrication.
+
+            </p>
+            <p>
+                The board was designed to be assembled by JLCPCB, which influenced several component selection decisions. Since non-standard component values incur additional costs, I adjusted the design to minimize unique part values by using equivalent circuits and close-match components where the application allowed. This reduced manufacturing costs by roughly $50 with an acceptable impact on performance.
+            </p>
+
+            <h2>Performance and Improvements</h2>
+            <p>
+                Testing was performed using a benchtop power supply, oscilloscope, and a high-power resistive load. Under a 2 Ω load (approximately 2.5–3 A, or about 50% of the theoretical maximum), the output ripple measured around 100 mV peak-to-peak. This result was acceptable for this application, but it could have been better. No significant overheating was observed.
+            </p>
+            <p>
+                In hindsight, the design could be improved by reducing the overall board size and further optimizing the layout to improve power integrity, particularly around the switching sections. A future revision would also include additional transient protection and more deliberate consideration of startup behavior.
+            </p>
         </div>
+
         <div class="skills-card">
             <h2>Skills Used</h2> 
             <div class="skills-list">
-                
-                <span class="skill">drumel</span>    
-                
-                <span class="skill">microprobing</span>    
-                
-                <span class="skill">Electronics Teardown</span>    
-                
-                <span class="skill">PCB analysis</span>    
-                
-                <span class="skill">audio system design</span>    
-                
+                <span class="skill">Power electronics</span>    
+                <span class="skill">Altium PCB Design</span>    
+                <span class="skill">LTSpice</span>      
+                <span class="skill">Electrical testing</span>      
+                <span class="skill">Circuit analysis</span>      
+                <span class="skill">EMI reduction</span>      
+                <span class="skill">EMI Thermal management</span>
+                <span class="skill">BOM management</span>
             </div>
         </div>
     </div>
-      
-    <div class="content">
-        <h1 id="test">test</h1>
-
+    
+    <div class="content">        
+        <hr/>
+        
+        Content here
     </div>
-</div>
 
-</div>
+</div></div>
 
      
 </body>
