@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <script src="/assets/js/script.js"></script>
+
+    <title>Wayne's Portfolio</title>
+</head>
+
+<body>
+    <!-- NAVBAR -->
+     <!-- _includes/nav.html -->
+<nav>
+    <div class="left">
+        <a href="/">Wayne Sudanartha</a>
+    </div>
+
+    <!-- Desktop Menu -->
+    <div class="right desktop-nav">
+        <a href="/">
+            <span>Home</span>
+        </a>
+        <a href="/index.html#projects">
+            <span>Projects</span>
+        </a>
+
+    </div>
+
+    <!-- Mobile Menu Button -->
+    <button class="menu-toggle" aria-label="Toggle menu">
+        <i class="fa fa-bars fa-2x"></i>
+    </button>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-nav">
+        <a href="/">
+            <span>Home</span>
+        </a>
+        <a href="/index.html#projects">
+            <span>Projects</span>
+        </a>
+    </div>
+</nav>
+
+<div class="page"><div class="post-view">
+    <div class="summary">
+        <!-- <img class="cover" src="/projects/PROJECTNAME/media/cover.png"> -->
+        
+        <div class="title-header">
+            <h1>Practice Boards</h1>
+        </div>
+        
+        <div class="project-description">
+            <p>
+                These are PCBs I made for practice and fun. They have not been manufactured.
+            </p>
+        </div>
+
+        <div class="skills-card">
+            <h2>Skills Used</h2> 
+            <div class="skills-list">
+                <span class="skill">Altium PCB design</span>    
+                <span class="skill">KiCAD PCB design</span>    
+
+            </div>
+        </div>
+    </div>
+    
+    <div class="content">        
+        <hr/>
+        
+        <h2>STM32 Breakout</h2>
+        <p>
+            I learned about STM32 supporting circuitry and using CubeIDE to manage pinouts. Made using KiCAD.
+        </p>
+        <figure>
+            <img src="media/stm_breakout/schematic_full.png" width="100%"/>
+            <figcaption> STM32 breakout board schematic </figcaption>
+        </figure>
+
+        <figure>
+            <img src="media/stm_breakout/pcb_2d.png" width="48%"/>
+            <img src="media/stm_breakout/pcb_3d.png" width="48%"/>
+            <figcaption> STM32 breakout board PCB 2D and 3D view </figcaption>
+        </figure>
+
+        <h2>MPU6050 Module</h2>
+        <p> I learned how to make a module based on an IMU IC. Made using Altium.</p>
+        <figure>
+            <img src="media/mpu6050/schematic.png" width="100%"/>
+            <figcaption> MPU6050 module schematic </figcaption>
+        </figure>
+
+        <figure>
+            <img src="media/mpu6050/pcb_2d.png" width="48%"/>
+            <img src="media/mpu6050/pcb_3d.png" width="48%"/>
+            <figcaption> MPU6050 module PCB 2D and 3D view </figcaption>
+        </figure>
+
+    </div>
+
+</div></div>
+
+     
+</body>
+
+</html>

@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="/css/syntax.css">
 
     <script src="/assets/js/script.js"></script>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
 
     <title>Wayne's Portfolio</title>
 </head>
@@ -76,7 +77,7 @@
                 As a team, reliability was our top priority, so our design philosophy focused on keeping the robot simple and executing it well. Since the challenge was very open-ended, we prioritized modularity so we could quickly try different approaches, adapt to new use cases, and swap out components if something broke. This was everyone’s first robotics competition, so our main goal was to learn as much as possible rather than worry about winning.
             </p>
             
-            <h2>Robot design</h2>
+            <h2>Robot Design</h2>
             <p>
                 The robot used a two-wheel drive base with a chassis-mounted mechanical claw. The claw had three degrees of freedom: base rotation, vertical lift stage, and linear arm extension. For sensing, we used a time-of-flight LiDAR for rough positioning and obstacle awareness, and a magnetometer for fine claw alignment when locating pets. The magnetometer allowed the claw to home in on the weak embedded magnet once the robot was in the general area.
             </p>
@@ -92,54 +93,66 @@
             </figure>
 
             <p>
-                Overall, the electrical system ended up being very robust. All modules behaved as they should from initial testing through competition runs. The main issue we ran into after full system integration was I2C reliability (which I found out after reading the communication line using an oscilloscope). Some of the communication lines were simply too long (some are over a meter), which caused data corruption and erratic claw behavior. 
+                Some additional comments about the system:
+                <ul>
+                    <li>The system was fused at 10 A for safety in case of accidental electrical shorts.</li>
+                    <li>Power, sensor, signal, and communication lines are color coded to ease troubleshooting.</li>
+                    <li>Ground wires are routed in a star topology to prevent ground loops.</li>
+                </ul>
             </p>
-
-            <p>
-                To fix this, I shortened the I2C lines wherever possible, lowered the clock speed to 50 kHz, and increased the pull-up strength. After those changes, communication become stable and the issue did not reappear for the remainder of testing or competition.
-            </p>
-
+ 
             <p>
                 I designed a total of eight custom PCBs to support the robot’s sensing, actuation, power distribution, and logic control:
+
                 <table>
-                    <thead>
-                        <tr>
-                        <th width="25%">Board name</th>
-                        <th>Description</th>
-                        </tr>
-                    </thead>
                     <tbody>
                         <tr>
-                            <td>Logic Power Regulation Board</td>
-                            <td>Provides clean, regulated power for electronics used in logic and control</td>
+                            <td width="25%"><i>Logic Power Regulation Board</i></td>
+                            <td>
+                                Provides clean, regulated power for electronics used in logic and control
+                            </td>
                         </tr>
                         <tr>
-                            <td>ESP32 Breakout Board</td>
-                            <td>Acts as the main control hub for the ESP32 to interface with robot sensors, actuators, and other peripherals. Strapping pins' behavior during startup was considered.</td>
+                            <td><i>ESP32 Breakout Board</i></td>
+                            <td>
+                                Acts as the main control hub for the ESP32 to interface with robot sensors, actuators, and other peripherals; strapping pins' behavior during startup was considered
+                            </td>
                         </tr>
                         <tr>
-                            <td>I2C Multiplexer Board</td>
-                            <td>Acts as a central I2C hub with multiplexing capability for sensors with identical addresses.</td>
+                            <td><i>I2C Multiplexer Board</i></td>
+                            <td>
+                                Acts as a central I2C hub with multiplexing capability for sensors with identical addresses
+                            </td>
                         </tr>
                         <tr>
-                            <td>H-Bridge Motor Driver</td>
-                            <td>Controls DC motor speed and direction. Includes optocoupler isolation on control signals to reduce noise coupling from the motor side.</td>
+                            <td><i>H-Bridge Motor Driver</i></td>
+                            <td>
+                                Controls DC motor speed and direction; includes opto-isolation on control signals to prevent noise coupling from the motor side
+                            </td>
                         </tr>
                         <tr>
-                            <td>Optocoupler Board</td>
-                            <td>Decouples control signals and motor power to prevent noise coupling.</td>
+                            <td><i>Optocoupler Board</i></td>
+                            <td>
+                                Opto-isolates control signals and motor power to prevent noise coupling
+                            </td>
                         </tr>
                         <tr>
-                            <td>Tape Sensing Board</td>
-                            <td>Detects tape markers on the competition surface for navigation during driving.</td>
+                            <td><i>Tape Sensing Board</i></td>
+                            <td>
+                                Detects tape markers on the competition surface for navigation during driving
+                            </td>
                         </tr>
                         <tr>
-                            <td>Microswitch Debouncing Board</td>
-                            <td>Filters mechanical switch bounce to prevent false triggers.</td>
+                            <td><i>Microswitch Debouncing Board</i></td>
+                            <td>
+                                Filters mechanical switch bounce to prevent false triggers
+                            </td>
                         </tr>
                         <tr>
-                            <td>Infrared Beacon Detector</td>
-                            <td>Detects the position of an infrared-emitting beacon. This board was ultimately not used in the final design due to a strategy changes.</td>
+                            <td><i>Infrared Beacon Detector</i></td>
+                            <td>
+                                Detects the position of an infrared-emitting beacon; this board was ultimately not used in the final design due to strategy changes
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -147,18 +160,26 @@
             <p>
                 Further details of each board are provided in their respective sections.
             </p>
+            <p>
+                Overall, the electrical system ended up being very robust. All modules behaved as they should from initial testing through competition runs. The main issue we ran into after full system integration was I2C reliability (which I found out after reading the communication line using an oscilloscope). Some of the communication lines were simply too long (some are over a meter), which caused data corruption and erratic claw behavior. 
+            </p>
+
+            <p>
+                To fix this, I shortened the I2C lines wherever possible, lowered the clock speed to 50 kHz, and increased the pull-up strength. After those changes, communication become stable and the issue did not reappear for the remainder of testing or competition.
+            </p>
 
             <h2> Software </h2>
             <p>
                 I designed the high-level software architecture for the robot, defining the core objects (we were using OOP), their responsibilities, and how they interact across sensing, control, and actuation. At a high level, the system was structured so that sensing, decision-making, and actuation were cleanly separated. This made it easier to test individual subsystems in isolation and iterate quickly as hardware changed.
             </p>
             <p>
-                To achieve accurate and repeatable arm positioning without using (expensive) off-the-shelf servos, I implemented a continuous servo using a DC motor paired with an AS5600 magnetic encoder. The encoder provided absolute angular position, which allowed me to track the wrapped angle and angular velocity in software. Control was implemented with a closed-loop PD controller, running at 50 Hz to regulate position and speed. 
+                To achieve accurate and repeatable claw positioning without using (expensive) off-the-shelf servos, I made a continuous servo using a DC motor paired with an AS5600 magnetic encoder. The encoder provided absolute angular position, which allowed me to track the wrapped angle and angular velocity in software. Control was implemented with a closed-loop PD controller, running at 50 Hz to regulate position and speed. 
+                This servo was incredibly accurate and deviations mainly come from actuator backlash.
             </p>
             <p>
-                This system was used for precise positioning of the robot’s arm and was experimentally validated during testing:
+                This system was used for precise positioning of the robot’s claw and was experimentally validated during testing:
+
                 <ul>
-                    <li><b>Angular accuracy:</b> ~3° (encoder + control loop)</li>
                     <li><b>Arm positioning accuracy:</b> ~5 mm over a 25 cm reach (after accounting for backlash)</li>
                     <li><b>Claw base rotation accuracy:</b> ~6°</li>
                     <li><b>Vertical stage accuracy:</b> ~1 mm (lead screw driven)</li>
@@ -174,7 +195,7 @@
             </p>
 
             <h2>
-                Possible Improvements and Lessons Learned:
+                Possible Improvements and Lessons Learned
             </h2>
 
             <p>
@@ -214,14 +235,8 @@
                 <span class="skill">PID control</span> 
                 <span class="skill">Sensor design</span> 
                 <span class="skill">Automation</span> 
-                <span class="skill">Modular design</span> 
+                <span class="skill">Modular system design</span> 
                 <span class="skill">I2C</span> 
-                <span class="skill">Electrical system design</span> 
-                <span class="skill">OOP</span> 
-                <span class="skill">Software system design</span> 
-                <span class="skill">System integration</span> 
-  
-
             </div>
         </div>
     </div>
@@ -232,11 +247,11 @@
         <div class="image-gallery" style="--gallery-height: 300px; --ar: 5/3;">
             <figure>
                 <img src="media/comp_3d.png"/>
-                <figcaption> Competition surface 3D model view. </figcaption>
+                <figcaption> Competition surface 3D model view </figcaption>
             </figure>
             <figure>
                 <img src="media/comp_2d.png"/>
-                <figcaption> Competition surface 2D description. </figcaption>
+                <figcaption> Competition surface 2D description </figcaption>
             </figure>
         </div>
 
@@ -245,40 +260,128 @@
             <video autoplay muted loop playsinline width="60%">
                 <source src="media/robot_operation.mp4" type="video/mp4">
             </video>
-            <figcaption> The robot autonomously rescuing a pet and dropping it to the safe zone. </figcaption>
+            <figcaption> The robot autonomously rescuing a pet and dropping it to the safe zone </figcaption>
         </figure>
 
         <h2>Claw Testing</h2>
+        <p>
+            This is a video of the claw being tested during the initial stages of the design. 
+            Vertical homing and (a slow version of) pet sensing is demonstrated as a proof-of-concept.  
+            Note that the base gear was not yet installed so I had to hold it in place. <br>
+            <i> Additional note: I should have really cleaned up my workspace...</i>
+        </p>
         <figure>
             <video autoplay muted loop playsinline width="30%">
                 <source src="media/claw_demo.mp4" type="video/mp4">
             </video>
-            <figcaption> The claw being tested during the initial stages of the design. Vertical homing and (slow) pet sensing is demonstrated. Note that the base gear was not yet installed so I had to hold it in place. </figcaption>
+            <figcaption> The claw being tested </figcaption>
         </figure>
 
         <h2>Continuous Servo</h2>
+        <p>
+            This is the continuous servo I made from a generic geared (TT) motor and an AS5600 magnetic encoder.
+            It uses a PD control loop implemented in software.
+            The steady state angle was incredibily accurate (I can't measure it with the available tools).
+            So in practice, deviations come from mechanism gear backlash.
+        </p>
         <figure>
             <video autoplay muted loop playsinline width="60%">
                 <source src="media/continuous_servo.mp4" type="video/mp4">
             </video>
-            <figcaption> A continuous servo made from a generic geared motor and AS5600 magnetic encoder. Utilized a PD control loop implemented in software. </figcaption>
+            <figcaption> Servo doing continuous 90 degree rotations </figcaption>
         </figure>
 
 
         <h2>Electronics</h2>
         <figure>
             <img src="media/annotated_chassis.jpeg" width="40%"/>
-            <figcaption> Boards wired inside of the chassis. </figcaption>
+            <figcaption> Boards wired inside of the chassis </figcaption>
         </figure>
         <h2>PCB Boards</h2>
-        <h3>Logic Power Regulation Board</h3>
+        <p>These are the custom PCBs I made for this project. Looking back, I should have annotated the schematic better.</p>
         <h3>ESP32 Breakout Board</h3>
+        <div class="image-gallery" style="--gallery-height: 350px;">
+            <figure>
+                <img src="media/pcb/esp_sch.png" >
+                <img src="media/pcb/esp_3d.png" >
+
+                <figcaption> Schematic and 3D view of the ESP32 breakout board</figcaption>
+            </figure>
+        </div>
+
+        <h3>Logic Power Regulation Board</h3>
+        <div class="image-gallery" style="--gallery-height: 350px;">
+            <figure>
+                <img src="media/pcb/logic_supply_sch.png" >
+                <img src="media/pcb/logic_supply_3d.png" >
+
+                <figcaption> Schematic and 3D view of the logic power regulation board; <i>sorry for the messy schematics</i></figcaption>
+            </figure>
+        </div>
+
         <h3>I2C Multiplexer Board</h3>
+        <div class="image-gallery" style="--gallery-height: 350px;">
+            <figure>
+                <img src="media/pcb/i2c_sch.png" >
+                <img src="media/pcb/i2c_3d.jpg" >
+
+                <figcaption> Schematic and 3D view of the I2C multiplexer board</figcaption>
+            </figure>
+            <p>
+                For this board, I used a regular digital multiplexer (which was the only type available in the lab). The high on-resistance of the IC gave me a huge headache and it's one of the reasons why communication was not reliable during integration. 
+                This problem was solved with shortening wires (reduce inductance and resistance) and using a stronger pull-up.
+            </p>
+        </div>
+
         <h3>H-Bridge Motor Driver</h3>
+        <div class="image-gallery" style="--gallery-height: 350px;">
+            <figure>
+                <img src="media/pcb/h_bridge_sch.png" >
+                <img src="media/pcb/h_bridge_3d.jpg" >
+
+                <figcaption> Schematic and 3D view of the H-bridge driver board</figcaption>
+            </figure>
+        </div>
+
         <h3>Optocoupler Board</h3>
+        <div class="image-gallery" style="--gallery-height: 350px;">
+            <figure>
+                <img src="media/pcb/optocoupler_sch.png" >
+                <img src="media/pcb/optocoupler_3d.png" >
+
+                <figcaption> Schematic and 3D view of the optocoupler board</figcaption>
+            </figure>
+        </div>
+
         <h3>Tape Sensing Board</h3>
+        <div class="image-gallery" style="--gallery-height: 350px;">
+            <figure>
+                <img src="media/pcb/tape_sch.png" >
+                <img src="media/pcb/tape_3d.png" >
+
+                <figcaption> Schematic and 3D view of the tape sensing board</figcaption>
+            </figure>
+        </div>
+
         <h3>Microswitch Debouncing Board</h3>
+        <div class="image-gallery" style="--gallery-height: 350px;">
+            <figure>
+                <img src="media/pcb/microswitch_sch.png" >
+                <img src="media/pcb/microswitch_3d.jpg" >
+
+                <figcaption> Schematic and 3D view of the microswitch debouncing board</figcaption>
+            </figure>
+        </div>
+
         <h3>Infrared Beacon Detector</h3>
+        <div class="image-gallery" style="--gallery-height: 300px;">
+            <figure>
+                <img src="media/pcb/ir_beacon_sch.png" >
+                <img src="media/pcb/ir_beacon_3d.png" >
+
+                <figcaption> Schematic and 3D view of the infrared beacon detector board</figcaption>
+            </figure>
+        </div>
     </div>
 
 </div></div>

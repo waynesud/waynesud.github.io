@@ -609,6 +609,10 @@ footer p {
     object-fit: cover;
     border-radius: 6px;
     aspect-ratio: 2/1;
+
+    display: block;
+    margin: 0 auto;
+
     margin-bottom: 10px;
 }
 

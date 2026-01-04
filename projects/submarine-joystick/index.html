@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <script src="/assets/js/script.js"></script>
+
+    <title>Wayne's Portfolio</title>
+</head>
+
+<body>
+    <!-- NAVBAR -->
+     <!-- _includes/nav.html -->
+<nav>
+    <div class="left">
+        <a href="/">Wayne Sudanartha</a>
+    </div>
+
+    <!-- Desktop Menu -->
+    <div class="right desktop-nav">
+        <a href="/">
+            <span>Home</span>
+        </a>
+        <a href="/index.html#projects">
+            <span>Projects</span>
+        </a>
+
+    </div>
+
+    <!-- Mobile Menu Button -->
+    <button class="menu-toggle" aria-label="Toggle menu">
+        <i class="fa fa-bars fa-2x"></i>
+    </button>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-nav">
+        <a href="/">
+            <span>Home</span>
+        </a>
+        <a href="/index.html#projects">
+            <span>Projects</span>
+        </a>
+    </div>
+</nav>
+
+<div class="page"><div class="post-view">
+    <div class="summary">
+        <img class="cover" src="media/cover.png" style="aspect-ratio: 4/3;">
+        
+        <div class="title-header">
+            <h1>Hall-Effect Submarine Joystick</h1>
+        </div>
+        
+        <div class="project-description">
+            <h2>Project Description</h2>
+            <p>
+                This project is a Hall-effect submarine joystick used in SUBC’s steering system for the 2024 International Submarine Race. Since SUBC designs wet-race submarines, all electronics must be waterproof. Using a Hall-effect sensor provides contactless coupling between the moving joystick and the electronics, allowing the electrical system to remain stationary. This simplifies waterproofing, especially under high pressure at significant depth.
+            </p>
+            <h2>Contributions</h2>
+            <p>
+                My primary responsibility was designing the Hall-effect sensor PCB. The board itself was simple, and was focused on generating clean analog signal output with basic supporting circuitry. I handled testing and calibration of the analog signal to ensure consistent and repeatable output across the joystick’s range of motion.
+            </p>
+            <p>
+                In addition to the electronics, I helped with the CAD design of the mechanical enclosure, including the sensor mount, joystick clamp, and the module itself. I also assisted with soldering, connector crimping, and waterproofing the PCB using a urethane coating. Finally, I helped pressure-test the enclosure to verify that it was airtight and met the required depth rating.
+            </p>
+            <h2>Reflection</h2>
+            <p>
+                This was the first PCB I ever designed! I am very grateful to the senior team members, since with their guidance, the design process went very smoothly. They helped turn the previously unfamiliar PCB design into something very approachable; and now it’s a skill I practice regularly. This project gave me my first taste of practical, real-world electronics design, and I have been hungry for more ever since!
+            </p>
+        </div>
+
+        <div class="skills-card">
+            <h2>Skills Used</h2> 
+            <div class="skills-list">
+                <span class="skill">Altium PCB design</span>    
+                <span class="skill">Sensor design</span>    
+                <span class="skill">Electronics waterproofing</span>    
+                <span class="skill">Onshape</span>    
+
+            </div>
+        </div>
+    </div>
+    
+    <div class="content">        
+        <hr/>
+        <h2>PCB</h2>
+
+        <figure>
+            <img src="media/schematic.png" width="80%"/>
+            <figcaption> PCB schematic</figcaption>
+        </figure>
+        <figure>
+            <img src="media/pcb.png" width="80%"/>
+            <figcaption> PCB 3D view</figcaption>
+        </figure>
+        <figure>
+            <img src="media/pcb-mounted.png" width="80%"/>
+            <figcaption> PCB mounted in enclosure</figcaption>
+        </figure>
+
+    </div>
+</div></div>
+
+     
+</body>
+
+</html>

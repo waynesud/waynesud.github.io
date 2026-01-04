@@ -18,8 +18,7 @@
 
     
     <title>Wayne's Portfolio</title>
-    
-
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
 </head>
 
 <body>
@@ -79,9 +78,9 @@
             <!-- <h3> Headline </h3> -->
             <p> 
                 I am a third-year Engineering Physics student at UBC with a focus on electrical and software design. 
-                My interests include power electronics, sensing, RF design, and automation. I love building stuff! <br><br>
-                I am the Electrical Team Lead for UBC Uncrewed Aircraft Systems (UAS), where I design the electrical power and control 
-                systems for a heavy-duty autonomous quadcopter.
+                My interests include power electronics, sensing, RF design, and automation. I love learning and building stuff! <br><br>
+                I am the Electrical Team Lead for UBC Uncrewed Aircraft Systems (UAS), where I design the electrical power and control systems for a heavy-duty autonomous quadcopter. I help research and do design reviews for our RF receiver, video transmitter, main payload, power distribution PCBs which are all produced in-house. I am also responsible for designing a gimbal control board used for camera stabilization and water-turret aiming for this year’s national UAS competition.
+
             </p>
 
             <div class="links">
@@ -118,26 +117,21 @@
         <a href="/projects/pet-rescue/index.html" class="project-link">
             <div class="project-card">
                 <img src="/projects/pet-rescue/media/carl.jpg" alt="Pet Rescue Robot">
-                <h3 class="project-title">Pet Rescue Robot Competition (3rd Place)</h3>
+                <h3 class="project-title">Pet Rescue Robot (3rd Place)</h3>
 
                 <div class="project-skills">
-                    <span class="skill">Altium PCB design</span>
-                    <span class="skill">Power electronics</span>
-                    <span class="skill">PID control</span>
-                    <span class="skill">Sensor design</span>
-                    <span class="skill">Automation</span>
-                    <span class="skill">Modular design</span>
-                    <span class="skill">I2C</span>
-                    <span class="skill">Electrical system design</span>
-                    <span class="skill">Circuit analysis</span>
-                    <span class="skill">Circuit testing</span>
-                    <span class="skill">OOP</span>
-                    <span class="skill">Software system design</span>
-                    <span class="skill">System integration</span>
+                    <span class="skill">Altium PCB design</span>    
+                    <span class="skill">Power electronics </span>  
+                    <span class="skill">PID control</span> 
+                    <span class="skill">Sensor design</span> 
+                    <span class="skill">Automation</span> 
+                    <span class="skill">Modular system design</span> 
+                    <span class="skill">I2C</span> 
                 </div>
 
                 <p class="project-description">
-                    An autonomous robot that detects scattered targets around a competition field and retrieves them to a designated safe area. Responsible for the entire electrical system (consisting of 8 modular custom-made PCBs) and claw-related software.
+                    An autonomous robot that detects scattered targets around a competition field and retrieves them to a designated safe area; 
+                    responsible for the entire electrical system, designed 8 modular PCBs and claw-related software
                 </p>
                 <button class="read-more">Read more →</button>
             </div>
@@ -145,7 +139,7 @@
 
         <a href="/projects/aircraft-pdb/index.html" class="project-link">
             <div class="project-card">
-                <img src="/projects/demo-project/project2.jpg" alt="Aircraft Power Distribution Board">
+                <img src="/projects/aircraft-pdb/media/cover.jpg" alt="Aircraft Power Distribution Board">
                 <h3 class="project-title">Aircraft Power Distribution Board</h3>
 
                 <div class="project-skills">
@@ -156,12 +150,46 @@
                 </div>
 
                 <p class="project-description">
-                    A high-power buck converter PCB to step-down a 50.4V LiPo battery pack and distribute regulated power to the flight controller and servos.
+                    A high-power buck converter PCB to step-down a 50.4V LiPo battery pack and distribute regulated power to an aircraft flight controller and servos; additional capabilities include battery voltage sensing and Hall-effect current measurement
                 </p>
                 <button class="read-more">Read more →</button>
             </div>
         </a>
 
+        <a href="/projects/servo-controller/index.html" class="project-link">
+            <div class="project-card">
+                <img src="/projects/servo-controller/media/cover.jpg" alt="Servo motor controller">
+                <h3 class="project-title">Servo Motor Controller</h3>
+
+                <div class="project-skills">
+                    <span class="skill">Digital circuits</span>    
+                    <span class="skill">PID control</span>   
+                    <span class="skill">Troubleshooting</span>    
+                </div>
+
+                <p class="project-description">A servo motor controller that sets the speed of a DC motor with a IR encoder based on a potentiometer input.​​ Uses digital logic and a PI feedback loop to adjust motor RPM</p>
+                <button class="read-more">Read more →</button>
+            </div>
+        </a>
+
+        <a href="/projects/submarine-joystick/index.html" class="project-link">
+            <div class="project-card">
+                <img src="/projects/submarine-joystick/media/cover.png" alt="Submarine joystick ">
+                <h3 class="project-title">Hall-Effect Submarine Joystick</h3>
+
+                <div class="project-skills">
+                    <span class="skill">Altium PCB Design</span>    
+                    <span class="skill">Sensor design</span>    
+                    <span class="skill">Electronics waterproofing</span>     
+                    <span class="skill">Onshape</span>     
+
+                </div>
+
+                <p class="project-description">A Hall-effect submarine joysick used in SUBC’s steering system designed for the 2024 International Submarine Race</p>
+                <button class="read-more">Read more →</button>
+            </div>
+        </a>
+    
         <a href="/projects/v6-engine/index.html" class="project-link">
             <div class="project-card">
                 <img src="/projects/v6-engine/media/cover.png" alt="V6 Engine">
@@ -173,11 +201,25 @@
                     <span class="skill">Multi-part assembly</span>     
                 </div>
 
-                <p class="project-description">A complete CAD assembly of a six-cylinder engine made using Solidworks.</p>
+                <p class="project-description">A complete CAD assembly of a six-cylinder engine made using Solidworks</p>
                 <button class="read-more">Read more →</button>
             </div>
         </a>
 
+        <a href="/projects/practice-boards/index.html" class="project-link">
+            <div class="project-card">
+                <img src="/projects/practice-boards/media/cover.png" alt="STM32 Board">
+                <h3 class="project-title">PCB Design Practice</h3>
+
+                <div class="project-skills">
+                    <span class="skill">KiCAD PCB design</span>    
+                    <span class="skill">Altium PCB design</span>    
+                </div>
+
+                <p class="project-description">Boards I made for fun and practice (not manufactured).</p>
+                <button class="read-more">Read more →</button>
+            </div>
+        </a>
     </div>
 </section>
 

@@ -54,7 +54,7 @@
 
 <div class="page"><div class="post-view">
     <div class="summary">
-        <img class="cover" src="/projects/v6-engine/media/cover.png">
+        <img class="cover" src="media/cover.jpg" style="width: 80%; aspect-ratio: 3/2;">
         
         <div class="title-header">
             <h1>Aircraft Power Distribution Board</h1>
@@ -71,6 +71,9 @@
 
             <h2>Design Considerations</h2>
             <p>
+                Buck converter component value selection was done with the help of TI WEBENCH Designer. For current sensing, I closely followed the ACS780 datasheet and layout recommendations. In particular, input current was routed perpendicular to the IC as specified, and copper pours were made as large as possible to reduce resistance and maximize current capacity.
+            </p>
+            <p>
                 I considered component parasitics throughout the design process, and all supporting components were selected to meet the recommendations in the TPS54560 buck converter datasheet. I made sure that the ground plane was mostly solid and no traces were blocking current return paths. During routing, I took extra care to minimize the size of high-frequency and high-power current loops to reduce EMI.
             </p>
             <p>
@@ -86,7 +89,7 @@
                 Testing was performed using a benchtop power supply, oscilloscope, and a high-power resistive load. Under a 2 Ω load (approximately 2.5–3 A, or about 50% of the theoretical maximum), the output ripple measured around 100 mV peak-to-peak. This result was acceptable for this application, but it could have been better. No significant overheating was observed.
             </p>
             <p>
-                In hindsight, the design could be improved by reducing the overall board size and further optimizing the layout to improve power integrity, particularly around the switching sections. A future revision would also include additional transient protection and more deliberate consideration of startup behavior.
+                In hindsight, the design could be improved by reducing the overall board size and further optimizing the layout to improve power integrity, particularly around the switching sections. I would also add more layers to the board to further increase the board's current capacity. A future revision would also include additional transient protection and more deliberate consideration of startup behavior.
             </p>
         </div>
 
@@ -96,10 +99,9 @@
                 <span class="skill">Power electronics</span>    
                 <span class="skill">Altium PCB Design</span>    
                 <span class="skill">LTSpice</span>      
-                <span class="skill">Electrical testing</span>      
                 <span class="skill">Circuit analysis</span>      
                 <span class="skill">EMI reduction</span>      
-                <span class="skill">EMI Thermal management</span>
+                <span class="skill">Thermal management</span>
                 <span class="skill">BOM management</span>
             </div>
         </div>
@@ -107,8 +109,40 @@
     
     <div class="content">        
         <hr/>
-        
-        Content here
+        <h2> Schematics</h2>
+        <figure>
+            <img src="media/buck.png" width="100%">
+            <figcaption> Buck converter schematic</figcaption>
+        </figure>
+
+        <figure>
+            <img src="media/current-sense.png" width="100%">
+            <figcaption>Current sensing schematic</figcaption>
+        </figure>
+
+        <div class="image-gallery" style="--gallery-height: 400px;">
+            <figure>
+                <img src="media/volt_sense.png">
+                <figcaption>Voltage sensing schematic</figcaption>
+            </figure>
+
+            <figure>
+                <img src="media/system.png">
+                <figcaption>System schematic</figcaption>
+            </figure>
+        </div>
+
+        <h2> PCB </h2>
+        <div class="image-gallery" style="--gallery-height: 400px;">
+            <figure>
+                <img src="media/pdb_pcb_layout.png" width="40%">
+                <figcaption>PCB layout 2D view</figcaption>
+            </figure>
+            <figure>
+                <img src="media/pdb_3d.png" width="40%">
+                <figcaption>PCB layout 3D view</figcaption>
+            </figure>
+        </div>
     </div>
 
 </div></div>
